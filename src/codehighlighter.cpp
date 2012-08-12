@@ -18,7 +18,7 @@ void CodeHighlighter::highlightBlock(const QString &text)
     QRegExp end("\\*/");
     int start_index = -1;
     bool is_comment_block = false;
-    QTextFormat multiLineCommentFormat;
+    QTextCharFormat multiLineCommentFormat;
     multiLineCommentFormat.setForeground(Qt::darkGreen);
 
     /*
@@ -45,6 +45,11 @@ void CodeHighlighter::highlightBlock(const QString &text)
             // If the state has been changed the method highlightBlock will be call on the
             // next line
             this->setCurrentBlockState(1);
+            this -> setFormat(start_index, text.length() - start_index, multiLineCommentFormat);
+        }
+        else
+        {
+            this -> setFormat(start_index, end_index + 2 - start_index, multiLineCommentFormat);
         }
     }
 }
